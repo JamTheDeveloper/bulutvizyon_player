@@ -25,26 +25,26 @@ def read_api_code():
 def create_autostart_file(api_code):
     """Chromium'u başlatmak için autostart dosyasını oluşturur."""
     # Chromium parametreleri
-    url = f"http://168.119.57.127:5005/preview/{api_code}"
+    url = "http://168.119.57.127:5005/preview/{}".format(api_code)
     chromium_command = (
-        f"chromium-browser --ignore-certificate-errors --disable-web-security "
-        f"--kiosk --disable-infobars --disable-session-crashed-bubble {url}"
+        "chromium-browser --ignore-certificate-errors --disable-web-security "
+        "--kiosk --disable-infobars --disable-session-crashed-bubble {}".format(url)
     )
 
     # Autostart dosyasını oluştur
     os.makedirs(AUTOSTART_DIR, exist_ok=True)
     with open(AUTOSTART_FILE, "w") as f:
         f.write(
-            f"""[Desktop Entry]
+            """[Desktop Entry]
 Type=Application
-Exec={chromium_command}
+Exec={}
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
 Name=Chromium Auto Start
-"""
+""".format(chromium_command)
         )
-    print(f"Autostart dosyası oluşturuldu: {AUTOSTART_FILE}")
+    print("Autostart dosyası oluşturuldu: {}".format(AUTOSTART_FILE))
 
 
 def main():
